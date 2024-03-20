@@ -1,0 +1,9 @@
+Package: volcano.view
+Type: Package
+Title: High-speed dashboards for omics
+Version: 0.1.0
+Author: Michael C. B. Galanakis
+Description: ...
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
