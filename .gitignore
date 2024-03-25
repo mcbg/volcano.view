@@ -1,3 +1,4 @@
 volcano.view.Rproj
 .Rproj.user
 .Rbuildignore
+inst/doc
