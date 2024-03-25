@@ -18,16 +18,19 @@ volcano.view = function(data, x, y, id, ...) {
 
 #' @export
 module.drill = function(...) {
-  vw(drill = list(...), type = 'module')
+  vec = unlist(list(...))
+  vw(drill = vec, type = 'module')
 }
 
 #' @export
 module.details = function(...) {
-  vw(details = list(...), type = 'module')
+  vec = unlist(list(...))
+  vw(details = vec, type = 'module')
 }
 
 #' @export
-module.drillplots = function(cols) {
+module.drillplots = function(...) {
+  vec = unlist(list(...))
   vw(`drill-plots`= cols, type = 'module')
 }
 
