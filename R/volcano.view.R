@@ -1,4 +1,5 @@
 
+
 vw = function(..., type) {
   structure(list(...), class = c('vw', 'list'), type = type)
 }
@@ -6,11 +7,11 @@ vw = function(..., type) {
 #' @importFrom jsonlite unbox
 #' @export
 volcano.view = function(data, x, y, id, ...) {
-  res = vw(
+  vw(
     view = unbox('volcano'),
     payload = list(
       data = as.list(data),
-      config = list(x = x, y = y, name = id) |> lapply(unbox)
+      config = list(x = x, y = y, id = id) |> lapply(unbox)
     ),
     type = 'main'
   )
@@ -18,17 +19,18 @@ volcano.view = function(data, x, y, id, ...) {
 
 #' @export
 module.drill = function(...) {
-  vw(drill = list(...), type = 'module')
+
+  vw(drill = c(...), type = 'module')
 }
 
 #' @export
 module.details = function(...) {
-  vw(details = list(...), type = 'module')
+  vw(details = c(...), type = 'module')
 }
 
 #' @export
-module.drillplots = function(cols) {
-  vw(`drill-plots`= cols, type = 'module')
+module.drillplots = function(...) {
+  vw(`drill-plots`= c(...), type = 'module')
 }
 
 #' @export
@@ -36,11 +38,21 @@ module.enrichment = function(data, drill=c()) {
   vw(enrichment=list(data=data, drill = drill), type = 'module')
 }
 
-#' @param collection A list where each element is a vector of genes. The elements should be named.
-#' @example module.genelist(list(housekeeping = c('ALBUMIN', 'GAPDH'), special = c('VHL', 'IL6R')))
+#' Adds gene list module to dashboard
+#'
+#' @param collection A list where each element is a vector of genes, where the elements should be named.
+#' @examples
+#'  module.genelist(list(housekeeping = c('ALBUMIN', 'GAPDH'), special = c('VHL', 'IL6R')))
 #' @export
 module.genelist = function(collection) {
-  vw(`gene-list`=list(genelist=genelists), type = 'module')
+  vw(`gene-list`=list(genelist=collection), type = 'module')
+}
+
+#' Adds confidence interval to selected point
+#'
+#' @export
+module.ci = function(low, high) {
+  vw(`confidence-interval`=list(low = unbox(low), high = unbox(high)), type = 'module')
 }
 
 #' @export
@@ -49,21 +61,37 @@ send = \(x) {
   httr::POST('http://127.0.0.1:8999/api/setState', body = jsonlite::toJSON(o), encode = 'raw')
 }
 
+.get.type = function(x) {
+  attributes(x)$type
+}
+
 .convert = function(ll) {
-  types = ll |> sapply(\(x) attributes(x)$type)
-  main = ll[[which(types == 'main')]]
-  modules = unlist(ll[types == 'module'], recursive = FALSE)
-  main$payload$modules = modules
-  return(main)
+  if ('vw-collect' %in% class(ll)) {
+    types = ll |> sapply(\(x) attributes(x)$type)
+    main = ll[[which(types == 'main')]]
+    modules = unlist(ll[types == 'module'], recursive = FALSE)
+    main$payload$modules = modules
+    return(main)
+  }
+  else if ('vw' %in% class(ll) & .get.type(ll) == 'main') {
+    main = ll
+    main$payload$modules = list()
+    return(main)
+  }
 }
 
 
 #' @export
-"+.vw" = \(x,y) {
+"+.vw" = function(x,y) {
   if ('vw-collect' %in% class(x)) {
-    c(x, list(y))
+    structure(c(x, list(y)), class = c('vw-collect', 'vw', 'list'))
   }
   else {
     structure(list(x, y), class = c('vw-collect', 'vw', 'list'))
   }
+}
+
+#' @export
+print.vw = function(x) {
+  print(send(x))
 }
