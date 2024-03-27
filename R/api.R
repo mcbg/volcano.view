@@ -35,22 +35,20 @@ init_server <- function(
   api <- APIstate$new()
 
   #client_path <- 'C:/Users/MZCG/erupt-front/dist'
-
-  if (!is.null(output_dir)) {
-    pr() |>
-      pr_static('output/', output_dir) |>
+  pipeline = \(x) x |>
       pr_static('/', client_path) |>
       pr_get('/api/getState', handler = api$getState, serializer = serialize_json_from_string) |>
       pr_post('/api/setState', handler = api$setState) |>
       pr_filter('cors', cors_filter) |>
       pr_run(port=port, docs = FALSE)
+
+  if (!is.null(output_dir)) {
+    pr() |>
+      pr_static('output/', output_dir) |>
+      pipeline()
   }
   else {
     pr() |>
-      pr_static('/', client_path) |>
-      pr_get('/api/getState', handler = api$getState, serializer = serializer_json()) |>
-      pr_post('/api/setState', handler = api$setState) |>
-      pr_filter('cors', cors_filter) |>
-      pr_run(port=port, docs = FALSE)
+      pipeline()
   }
 }
