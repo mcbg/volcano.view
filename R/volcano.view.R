@@ -7,6 +7,16 @@ vw = function(..., type) {
 #' @importFrom jsonlite unbox
 #' @export
 volcano.view = function(data, x, y, id, ...) {
+  # CHECKS
+  if (!(x %in% names(data))) stop("x variable, '", x,"', not in data")
+  if (!(y %in% names(data))) stop("y variable, '", y,"', not in data")
+  if (!(id %in% names(data))) stop("id variable, '", id,"', not in data")
+  lapply(names(list(...)), \(nm) {
+    var = list(...)[[nm]]
+    if (!(var %in% names(data))) stop(nm, " variable, '", var,"', not in data")
+  })
+
+  # RETURN
   vw(
     view = unbox('volcano'),
     payload = list(
