@@ -11,7 +11,7 @@ volcano.view = function(data, x, y, id, ...) {
     view = unbox('volcano'),
     payload = list(
       data = as.list(data),
-      config = list(x = x, y = y, id = id) |> lapply(unbox)
+      config = list(x = x, y = y, id = id, ...) |> lapply(unbox)
     ),
     type = 'main'
   )
