@@ -67,7 +67,7 @@ send = \(x) {
 
 .convert = function(ll) {
   if ('vw-collect' %in% class(ll)) {
-    types = ll |> sapply(\(x) attributes(x)$type)
+    types = ll |> sapply(.get.type)
     main = ll[[which(types == 'main')]]
     modules = unlist(ll[types == 'module'], recursive = FALSE)
     main$payload$modules = modules
@@ -93,5 +93,10 @@ send = \(x) {
 
 #' @export
 print.vw = function(x) {
-  print(send(x))
+  if ('vw-collect' %in% class(x) | .get.type(x) == 'main') {
+    print(send(x))
+  }
+  else {
+    NextMethod()
+  }
 }
