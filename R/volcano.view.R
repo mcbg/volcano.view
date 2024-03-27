@@ -65,7 +65,7 @@ send = \(x) {
 
 #' @export
 print.vw = function(x) {
-  if ('vw-collect' %in% class(x) | .get.type(x) == 'main') {
+  if ('vw-collect' %in% class(x) || .get.type(x) == 'main') {
     print(send(x))
   }
   else {

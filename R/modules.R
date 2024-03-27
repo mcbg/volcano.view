@@ -37,5 +37,5 @@ module.ci = function(low, high) {
 
 #' @export
 module.explore = function() {
-  vw(explore='Yes', type = 'module')
+  vw(explore=list('Yes'), type = 'module')
 }
