@@ -1,5 +1,6 @@
-#' @importFrom R6 R6Class
-APIstate <- R6Class('APIstate',
+
+#' @import R6
+APIstate <- R6::R6Class('APIstate',
   public = list(
     state = structure('{}', class = 'json'), # saved json
     getState = function(x) {
@@ -10,7 +11,6 @@ APIstate <- R6Class('APIstate',
     }
   )
 )
-
 # filter
 cors_filter <- function(res) {
   res$setHeader("Access-Control-Allow-Origin", "*")
@@ -18,8 +18,6 @@ cors_filter <- function(res) {
 }
 
 #' @importFrom plumber serializer_content_type
-serialize_json_from_string = serializer_content_type(type = 'application/json')
-
 #' @importFrom plumber pr
 #' @importFrom plumber pr_static
 #' @importFrom plumber pr_get
@@ -31,8 +29,10 @@ init_server <- function(
     port=8999,
     client_path = file.path(system.file(package = 'volcano.view'), 'client'),
     output_dir = NULL) {
+
   # state
-  api <- APIstate$new()
+  api = APIstate$new()
+  serialize_json_from_string = serializer_content_type(type = 'application/json')
 
   #client_path <- 'C:/Users/MZCG/erupt-front/dist'
   pipeline = \(x) x |>
