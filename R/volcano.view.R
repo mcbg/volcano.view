@@ -42,7 +42,7 @@ module.details = function(...) {
 #' @export
 module.drillplots = function(...) {
   vec = unlist(list(...))
-  vw(`drill-plots`= cols, type = 'module')
+  vw(`drill-plots`= vec, type = 'module')
 }
 
 #' @export
