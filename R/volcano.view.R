@@ -27,45 +27,35 @@ volcano.view = function(data, x, y, id, ...) {
   )
 }
 
-#' @export
-module.drill = function(...) {
-  vec = unlist(list(...))
-  vw(drill = vec, type = 'module')
-}
-
-#' @export
-module.details = function(...) {
-  vec = unlist(list(...))
-  vw(details = vec, type = 'module')
-}
-
-#' @export
-module.drillplots = function(...) {
-  vec = unlist(list(...))
-  vw(`drill-plots`= vec, type = 'module')
-}
-
-#' @export
-module.enrichment = function(data, drill=c()) {
-  vw(enrichment=list(data=data, drill = drill), type = 'module')
-}
-
-#' @param collection A list where each element is a vector of genes. The elements should be named.
-#' @example module.genelist(list(housekeeping = c('ALBUMIN', 'GAPDH'), special = c('VHL', 'IL6R')))
-#' @export
-module.genelist = function(collection) {
-  vw(`gene-list`=list(genelist=genelists), type = 'module')
-}
-
+#' @importFrom httr POST
 #' @export
 send = \(x) {
-  o = x |> .convert()
-  httr::POST('http://127.0.0.1:8999/api/setState', body = jsonlite::toJSON(o), encode = 'raw')
+  o = to.json(x)
+  POST('http://127.0.0.1:8999/api/setState', body = o, encode = 'raw')
 }
 
 .get.type = function(x) {
   attributes(x)$type
 }
+
+
+#' @importFrom jsonlite toJSON
+#' @export
+to.json = function(x) {
+  # checks
+  if (!('vw' %in% class(x))) stop('x is not of class vw')
+
+  # process
+  json = x |> .convert() |> toJSON()
+  return(json)
+}
+
+#' @export
+write.json = function(x, fn) {
+  json = to.json(x)
+  writeLines(text = json, fn)
+}
+
 
 .convert = function(ll) {
   if ('vw-collect' %in% class(ll)) {
