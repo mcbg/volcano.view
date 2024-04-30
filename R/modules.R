@@ -14,7 +14,7 @@ module.drillplots = function(...) {
 }
 
 #' @export
-module.enrichment = function(data, drill=c()) {
+module.enrichment = function(data, drill=list()) {
   vw(enrichment=list(data=data, drill = drill), type = 'module')
 }
 

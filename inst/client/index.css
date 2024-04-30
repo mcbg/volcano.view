@@ -206,7 +206,6 @@ header {
   overflow: hidden;
   background: var(--card-bg);
   border-radius: var(--card-border-radius);
-  display: inline-grid;
   border: 1px solid var(--neutral-shade);
 }
 
@@ -324,6 +323,7 @@ h1 {
 }
 
 .card__header {
+10  overflow-x: hidden;
   padding: 1rem;
 }
 
