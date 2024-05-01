@@ -27,6 +27,14 @@ volcano.view = function(data, x, y, id, ...) {
   )
 }
 
+#' @export
+explore = \(ds) {
+  ds_view = data.table(ds, rn = as.character(seq_len(nrow(ds))))
+  xvar = names(ds)[1]
+  yvar = names(ds)[2]
+  volcano.view(ds_view, x = xvar, y = yvar, id = 'rn') + module.explore()
+}
+
 #' @importFrom httr POST
 #' @export
 send = \(x) {
@@ -91,4 +99,9 @@ print.vw = function(x) {
   else {
     NextMethod()
   }
+}
+
+save.website = function(x, path) {
+  if (!dir.exists(path)) dir.create(path)
+
 }
