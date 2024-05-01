@@ -52,3 +52,10 @@ init_server <- function(
       pipeline()
   }
 }
+
+#' @export
+serve_static = function(path, port = 8998) {
+  pr() |>
+    pr_static('/', path) |>
+    pr_run(port=port, docs = FALSE)
+}

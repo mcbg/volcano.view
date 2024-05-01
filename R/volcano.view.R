@@ -101,7 +101,18 @@ print.vw = function(x) {
   }
 }
 
+#' @export
 save.website = function(x, path) {
   if (!dir.exists(path)) dir.create(path)
 
+  # process, to json
+  template.path = file.path(system.file(package = 'volcano.view'), 'templates/default/')
+  template.files = list.files(template.path, full.names = TRUE)
+
+  # copy template files
+  file.copy(template.files, path, recursive = TRUE)
+
+  # save json
+  json = to.json(x)
+  writeLines(json, file.path(path, 'config.json'))
 }
