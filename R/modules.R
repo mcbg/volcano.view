@@ -19,6 +19,12 @@ module.title = function(title) {
 }
 
 #' @export
+module.nav = function(label, url) {
+  links = lapply(seq_along(label), \(i) list(label = label[i], url = url[i]))
+  vw(nav = links, type = 'module')
+}
+
+#' @export
 module.enrichment = function(data, drill=list()) {
   vw(enrichment=list(data=data, drill = drill), type = 'module')
 }

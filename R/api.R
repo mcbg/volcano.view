@@ -34,13 +34,12 @@ init_server <- function(
   api = APIstate$new()
   serialize_json_from_string = serializer_content_type(type = 'application/json')
 
-  #client_path <- 'C:/Users/MZCG/erupt-front/dist'
   pipeline = \(x) x |>
       pr_static('/', client_path) |>
       pr_get('/api/getState', handler = api$getState, serializer = serialize_json_from_string) |>
       pr_post('/api/setState', handler = api$setState) |>
       pr_filter('cors', cors_filter) |>
-      pr_run(port=port, docs = FALSE)
+      pr_run(port = port, docs = FALSE)
 
   if (!is.null(output_dir)) {
     pr() |>

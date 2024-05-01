@@ -116,3 +116,32 @@ save.website = function(x, path) {
   json = to.json(x)
   writeLines(json, file.path(path, 'config.json'))
 }
+
+#' @export
+populate.dashboard = function(path) {
+  pkg.path = system.file(package = 'volcano.view')
+
+  # copy files
+  files = pkg.path |>
+    file.path('client') |>
+    list.files(full.names = TRUE)
+  files.to.copy = files[basename(files) != 'index.html']
+  file.copy(files.to.copy, path, recursive = TRUE)
+
+  # get template
+  template = pkg.path |>
+    file.path('templates/choose-config/index.html') |>
+    readLines()
+  insertion.line = grep('\\{%% INSERT CONFIG %%\\}', template)
+
+  # generate html
+  config.files = path |> list.files(full.names = TRUE, pattern = '*.json')
+
+  for (fn in config.files) {
+    html = template
+    html[insertion.line] = paste0('const config = "./', basename(fn), '"')
+    fn.html = sub('json$', 'html', fn)
+    # save html
+    writeLines(html, fn.html)
+  }
+}

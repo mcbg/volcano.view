@@ -36,7 +36,6 @@
 body {
   background: var(--neutral);
   font-family: Arial;
-  font-size: 14pt;
   font-color: var(--fg);
   padding: 0;
   margin: 0;
@@ -62,18 +61,17 @@ body {
 .container {
   margin-left: auto;
   margin-right: auto;
+  height: 100%;
 }
 
 .main {
-  min-height: 90vh;
-  gap: 0.5rem;
-  padding: 0.5rem;
+  gap: 0rem;
 }
 
 .main-2-1 {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr;
 }
 
 .main-3-2 {
@@ -87,19 +85,46 @@ body {
   grid-template-rows: 1fr;
 }
 
+/* navbar */
+
+.navbar {
+  line-height: 2.0rem;
+}
+
+.navbar__link {
+  padding: 0.5rem 1rem;
+}
+
+.navbar__link:link, .navbar__link:visited {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.navbar__link:hover {
+  text-decoration: underline;
+}
 /* layout */
 @media(min-width: 1218px) {
   .container {
     width: 1200px;
+    margin-top: 1.5rem;
+    height: auto;
   }
 
   .main {
     gap: 1rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    min-height: 90vh;
   }
 }
 
+@media(min-width: 680px) {
+  .main-2-1 {
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+  }
+}
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -233,14 +258,14 @@ header {
 
 /* tabmenu */
 .tabmenu {
-  height: 2.5rem;
   display: flex;
   color: #555;
   padding: 0rem 1rem;
 }
 
 .tabmenu__link {
-  padding: 0.25rem 0.5rem;
+  padding: 0rem 0.5rem;
+  line-height: 2rem;
   cursor: pointer;
   justify-content: center;
   user-select: none;
@@ -486,6 +511,7 @@ th {
 }
 
 .list__item {
+  display: flex;
   cursor: pointer;
   padding: 0.25rem;
 }
@@ -494,17 +520,20 @@ th {
   background: var(--plot-selected-tint);
 }
 
-.list__item:hover {
+.list__item:hover {C:\Users\galad\Documents\volcano.view\inst\client
   background: var(--neutral);
 }
 
 /* graphic elemets */
 
 .dot {
+  border-radius: 100px;
   display: inline-block;
   width: 0.5rem;
   height: 0.5rem;
-  margin: 0.1rem 0.25rem;
+  margin-left: 0.5rem;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .dot--marked {
