@@ -6,7 +6,18 @@ vw = function(..., type) {
 
 #' @importFrom jsonlite unbox
 #' @export
-volcano.view = function(data, x, y, id, ...) {
+volcano.view = function(data, x, y, id=NULL, ...) {
+  # handle id
+  if (is.null(id)) {
+    id = '__id__'
+    data[[id]] = seq_len(nrow(data)) |> as.character()
+  }
+
+  if (is.numeric(data[[id]])) {
+    data[[id]] = data[[id]] |>
+      as.character()
+  }
+
   # CHECKS
   if (!(x %in% names(data))) stop("x variable, '", x,"', not in data")
   if (!(y %in% names(data))) stop("y variable, '", y,"', not in data")

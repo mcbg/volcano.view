@@ -10,9 +10,9 @@
 @font-face {
   font-family: "Poppins";
   src:
-    url("Poppins-Italics.ttf") format("truetype");
+    url("Poppins-Italic.ttf") format("truetype");
   font-weight: normal;
-  font-style: italics;
+  font-style: italic;
 }
 
 @font-face {
@@ -699,6 +699,17 @@ table {
   height: 0.5rem;
   border-radius: 100px;
   margin-right: 0.5rem
+}
+
+/* misc */
+
+.loading-text {
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
 }
 
 /* scroll bar */

@@ -24,19 +24,32 @@ module.nav = function(label, url) {
   vw(nav = links, type = 'module')
 }
 
-#' @export
-module.enrichment = function(data, drill=list()) {
-  vw(enrichment=list(data=data, drill = drill), type = 'module')
-}
-
 #' Adds gene list module to dashboard
 #'
 #' @param collection A list where each element is a vector of genes, where the elements should be named.
 #' @examples
 #'  module.genelist(list(housekeeping = c('ALBUMIN', 'GAPDH'), special = c('VHL', 'IL6R')))
 #' @export
-module.genelist = function(collection) {
-  vw(`gene-list`=list(genelist=collection), type = 'module')
+module.genelist = function(collection, enrichment=NULL, drill=c()) {
+  if (is.null(enrichment)) {
+    vw(`gene-list`=
+      list(
+        genelist = collection,
+        drill = drill
+      ),
+      type = 'module'
+    )
+  }
+  else {
+    vw(`gene-list`=
+      list(
+        genelist = collection,
+        enrichment = enrichment |> as.list(),
+        drill = drill
+      ),
+     type = 'module'
+    )
+  }
 }
 
 #' Adds confidence interval to selected point
