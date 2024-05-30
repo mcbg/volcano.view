@@ -1,3 +1,125 @@
+
+@font-face {
+  font-family: "Poppins";
+  src:
+    url("Poppins-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src:
+    url("Poppins-Italics.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italics;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src:
+    url("Roboto-Italics.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italics;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src:
+    url("Poppins-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src:
+    url("Poppins-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src:
+    url("Poppins-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src:
+    url("Poppins-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src:
+    url("Poppins-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src:
+    url("Roboto-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: bold;
+}
+
+
+@font-face {
+  font-family: "Roboto";
+  src:
+    url("Roboto-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src:
+    url("Roboto-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src:
+    url("Roboto-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src:
+    url("Roboto-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src:
+    url("Roboto-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src:
+    url("Roboto-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: bold;
+}
+
 :root {
   /* neutral colours */
   --control-neutral: #f3f4fb;
@@ -35,10 +157,10 @@
 
 body {
   background: var(--neutral);
-  font-family: Arial;
   font-color: var(--fg);
   padding: 0;
   margin: 0;
+  font-family: "Roboto";
 }
 
 .clickable {
@@ -203,10 +325,12 @@ header {
 .card__content {
   padding: 1rem;
 }
+
 .card input {
-  background: var(--neutral-2);
+  background: #f6f8fd;
   padding-left: 1rem;
   border-radius: 1rem;
+  border: 0.02rem solid #bfc8cf;
 }
 
 .card__dropdown input {
@@ -311,6 +435,8 @@ input:focus, input:hover, button:focus, button:hover {
 
 h1 {
   font-size: 1.6rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
 }
 
 .card__header {
@@ -318,7 +444,7 @@ h1 {
   padding: 1rem;
 }
 
-.card__header:after {
+.seperator:after {
   content:'';
   display:block;
   width: 10rem;
@@ -378,15 +504,22 @@ table {
   table-layout: fixed;
 }
 
-th {
+
+.about-table__cell {
   text-align: left;
+  vertical-align: top;
+  padding-bottom: 0.5rem;
 }
 
-td {
-  text-align: center;
+.about-table__cell:first-child {
+  padding-right: 1rem;
 }
 
-td, th {
+.about-table__cell b {
+  font-weight: 500;
+}
+
+.results-table__cell {
   background: #fff;
   padding-left: 0.25rem;
   padding-right: 0.25rem;
@@ -395,26 +528,28 @@ td, th {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.table__head {
-  padding: 0.5rem 0.25rem;
-  background-clip: padding-box;
-}
-
-.table__body {
   padding: 0.25rem;
+  text-align: center;
 }
 
-.table__body--selected {
+.results-table__cell b {
+  font-weight: 500;
+}
+
+.results-table__cell--selected {
   background: var(--plot-marked-tint);
 }
 
-tr:hover {
+.results-table__row:hover {
+  cursor: pointer;
+}
+
+.results-table__row:hover {
   background: var(--neutral);
 }
 
-th {
+.results-table__cell:first-child {
+  text-align: left;
   left: 0;
   top: auto;
   position: sticky;
@@ -472,11 +607,20 @@ th {
   text-overflow: ellipsis;
 }
 
+.drill__info b {
+  font-weight: 500;
+}
+
 /* list */
 .list {
+  border: 0.02rem solid #bfc8cf;
+  margin: 0.5rem 0rem;
+  font-size: 0.9rem;
+  line-height: 0.8;
 }
 
 .list__item {
+  width: 100%;
   white-space: nowrap;
   cursor: pointer;
   padding: 0.25rem;
@@ -511,6 +655,15 @@ th {
   background: var(--plot-hover);
 }
 
+/* axis labels */
+
+.axis-label {
+  padding: 0rem 1rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
 /* plot styling */
 
 .point {
@@ -530,6 +683,22 @@ th {
 
 .point--hover {
   fill: var(--plot-hover);
+}
+
+/* legend */
+.legend {
+  padding: 1rem;
+  list-style-type: none;
+  font-weight: 300;
+}
+
+.legend__dot {
+  display: inline-block;
+  background: red;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 100px;
+  margin-right: 0.5rem
 }
 
 /* scroll bar */

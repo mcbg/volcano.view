@@ -50,3 +50,15 @@ module.ci = function(low, high) {
 module.explore = function() {
   vw(explore=list('Yes'), type = 'module')
 }
+
+#' @export
+module.about = function(fields, text) {
+  res = list()
+  for (i in seq_along(fields)) {
+    res[[i]] = list(
+      field = unbox(fields[i]),
+      text = unbox(text[i])
+    )
+  }
+  vw(about=res, type = 'module')
+}

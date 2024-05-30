@@ -18,9 +18,7 @@ knitr::opts_chunk$set(
 library(volcano.view)
 library(data.table)
 ds = mtcars |> data.table(keep.rownames = TRUE)
-list(
-  volcano.view(ds, x='mpg', y='disp', id = 'rn'),
-  module.drill('mpg', 'disp'),
+dashboard = volcano.view(ds, x='mpg', y='disp', id = 'rn') +
+  module.drill('mpg', 'disp') +
   module.details('gear', 'disp')
-) |> send()
 ```
