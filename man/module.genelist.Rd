@@ -4,7 +4,7 @@
 \alias{module.genelist}
 \title{Adds gene list module to dashboard}
 \usage{
-module.genelist(collection)
+module.genelist(collection, enrichment = NULL, drill = c())
 }
 \arguments{
 \item{collection}{A list where each element is a vector of genes, where the elements should be named.}
