@@ -58,3 +58,11 @@ serve_static = function(path, port = 8998) {
     pr_static('/', path) |>
     pr_run(port=port, docs = FALSE)
 }
+
+#' @importFrom rstudioapi jobRunScript
+#' @export
+init_server_background = function() {
+  fn = file.path(system.file(package = 'volcano.view'), 'scripts', 'server-background-job.R')
+  jobRunScript(fn)
+
+}
