@@ -117,11 +117,16 @@ save.website = function(x, path) {
   if (!dir.exists(path)) dir.create(path)
 
   # process, to json
+  trireme.path = file.path(system.file(package = 'volcano.view'), 'client')
+  trireme.files.all = trireme.path |>
+    list.files(full.names = TRUE)
+  trireme.files = trireme.files.all[grep('index.html$', trireme.files.all, invert = TRUE)]
   template.path = file.path(system.file(package = 'volcano.view'), 'templates/default/')
   template.files = list.files(template.path, full.names = TRUE)
+  all.files = c(trireme.files, template.files)
 
   # copy template files
-  file.copy(template.files, path, recursive = TRUE)
+  file.copy(all.files, path, recursive = TRUE)
 
   # save json
   json = to.json(x)
