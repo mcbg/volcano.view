@@ -211,9 +211,10 @@ body {
 }
 
 /* layout */
+
 @media(min-width: 1218px) {
   .container {
-    width: 1200px;
+    width: 1218px;
     margin-top: 1.5rem;
     height: auto;
   }
